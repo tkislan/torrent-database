@@ -1,0 +1,54 @@
+<div class="jumbotron">
+  <% if (req.session.flash && req.session.flash.error) { %>
+  <div class="alert alert-danger alert-dismissible" role="alert"><%=req.flash('error')%></div>
+  <% } %>
+  <% if (req.session.flash && req.session.flash.ok) { %>
+  <div class="alert alert-success alert-dismissible" role="alert"><%=req.flash('ok')%></div>
+  <% } %>
+
+  <% if (req.session.authenticated) { %>
+  <form action="/addtorrent" id="addtorrent" class="form-reserve" method="post">
+    <h2 class="form-heading">Add Torrent</h2>
+
+    <input type="text" class="form-control" placeholder="Magnet Link" name="magnet" autofocus>
+
+    <br/>
+
+    <input type="submit" class="btn btn-lg btn-primary btn-block" value="Add"/>
+  </form>
+  <% } else { %>
+  <form action="/signin" id="reserve" class="form-reserve" method="post">
+    <h2 class="form-reserve-heading">Sign In</h2>
+
+    <input type="text" class="form-control" placeholder="Username" name="username" autofocus>
+
+    <input type="password" class="form-control" placeholder="Password" name="password" id="password">
+    <br />
+
+    <br/>
+
+    <input type="submit" class="btn btn-lg btn-primary btn-block" value="Signin"/>
+  </form>
+  <% } %>
+
+
+</div>
+
+<table class="table">
+<thead>
+  <tr>
+    <th>#ID</th>
+    <th>Magnet Link</th>
+    <th>Time Added</th>
+  </tr>
+</thead>
+<% torrents.forEach(function(torrent) { %>
+<tr>
+  <td><%= torrent.rowid %></td>
+  <td><a href="<%= torrent.magnet %>">
+    <%= torrent.magnet.length > 100 ? torrent.magnet.substring(0, 100) + '...' : torrent.magnet %>
+  </a></td>
+  <td><%= torrent.time_added %></td>
+</tr>
+<% }); %>
+</table>
