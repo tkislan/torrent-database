@@ -38,6 +38,7 @@
 <thead>
   <tr>
     <th>#ID</th>
+    <th>Name</th>
     <th>Magnet Link</th>
     <th>Time Added</th>
   </tr>
@@ -45,6 +46,7 @@
 <% torrents.forEach(function(torrent) { %>
 <tr>
   <td><%= torrent.rowid %></td>
+  <td><%= torrent.name %></td>
   <td><a href="<%= torrent.magnet %>">
     <%= torrent.magnet.length > 100 ? torrent.magnet.substring(0, 100) + '...' : torrent.magnet %>
   </a></td>
